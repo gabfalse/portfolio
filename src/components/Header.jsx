@@ -5,7 +5,7 @@ export default function Header() {
   const menuItems = [
     { label: "Profile", target: "landing" },
     { label: "Skills", target: "skills" },
-    { label: "Projects", target: "projects" },
+    { label: "Experience", target: "experience" },
     { label: "Contact", target: "contact" },
   ];
 

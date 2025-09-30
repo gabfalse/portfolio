@@ -20,15 +20,12 @@ export default function ContactSection() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
-    // Simpan ke Supabase
     const { error } = await supabase.from("contacts").insert([form]);
 
     if (error) {
       console.error(error);
       alert("Failed to send. Please try again.");
     } else {
-      // Kirim juga ke email langsung (mailto)
       window.location.href = `mailto:gabrielalfarez14@gmail.com?subject=Message from ${form.name}&body=${form.message}%0A%0AFrom: ${form.email}`;
       alert("Message sent!");
       setForm({ name: "", email: "", message: "" });
@@ -39,7 +36,7 @@ export default function ContactSection() {
     <Box
       id="contact"
       sx={{
-        py: 12,
+        py: { xs: 8, sm: 12 },
         position: "relative",
         background:
           "linear-gradient(180deg, rgba(56,0,60,0.95) 0%, rgba(10,10,30,0.98) 100%)",
@@ -47,8 +44,6 @@ export default function ContactSection() {
         overflow: "hidden",
       }}
     >
-      {/* --- FANTASY ELEMENTS --- */}
-
       {/* Aurora effect */}
       <motion.div
         animate={{ x: [0, 40, -40, 0], opacity: [0.6, 1, 0.6] }}
@@ -82,22 +77,6 @@ export default function ContactSection() {
         }}
       />
 
-      <motion.div
-        animate={{ y: [0, 40, 0] }}
-        transition={{ repeat: Infinity, duration: 12 }}
-        style={{
-          position: "absolute",
-          bottom: 50,
-          left: "15%",
-          width: 180,
-          height: 180,
-          borderRadius: "50%",
-          background:
-            "radial-gradient(circle, rgba(255,0,180,0.4), transparent)",
-          filter: "blur(90px)",
-        }}
-      />
-
       {/* Stars */}
       {[...Array(20)].map((_, i) => (
         <motion.div
@@ -120,7 +99,7 @@ export default function ContactSection() {
         />
       ))}
 
-      {/* Fade top & bottom */}
+      {/* Fade overlays */}
       <Box
         sx={{
           position: "absolute",
@@ -145,7 +124,7 @@ export default function ContactSection() {
         }}
       />
 
-      {/* --- CONTENT --- */}
+      {/* Content */}
       <Container maxWidth="md" sx={{ position: "relative", zIndex: 2 }}>
         <Typography
           variant="h3"
@@ -154,6 +133,7 @@ export default function ContactSection() {
           sx={{
             fontWeight: "bold",
             textShadow: "0 0 20px rgba(255,255,255,0.6)",
+            fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
           }}
         >
           Get in Touch ✨
@@ -161,17 +141,35 @@ export default function ContactSection() {
         <Typography
           variant="subtitle1"
           align="center"
-          sx={{ mb: 6, opacity: 0.85 }}
+          sx={{
+            mb: 2,
+            opacity: 0.85,
+            fontSize: { xs: "0.9rem", sm: "1rem" },
+          }}
         >
           Let’s create something magical together
         </Typography>
 
+        {/* Availability */}
+        <Typography
+          align="center"
+          sx={{
+            mb: 6,
+            fontWeight: "bold",
+            fontSize: { xs: "1rem", sm: "1.2rem" },
+            color: "#00ffcc",
+            textShadow: "0 0 15px rgba(0,255,200,0.7)",
+          }}
+        >
+          🌙 Available for Freelance & Collaboration
+        </Typography>
+
         {/* Contact info cards */}
         <Stack
-          direction="row"
+          direction={{ xs: "column", sm: "row" }}
           justifyContent="center"
           spacing={4}
-          sx={{ mb: 6, flexWrap: "wrap" }}
+          sx={{ mb: 6, alignItems: "center" }}
         >
           <Card
             sx={{
@@ -182,7 +180,8 @@ export default function ContactSection() {
               color: "white",
               boxShadow: "0 0 20px rgba(255,255,255,0.15)",
               "&:hover": { boxShadow: "0 0 25px rgba(255,255,255,0.4)" },
-              minWidth: 200,
+              minWidth: 220,
+              width: { xs: "100%", sm: "auto" },
             }}
           >
             <CardContent sx={{ textAlign: "center" }}>
@@ -208,7 +207,8 @@ export default function ContactSection() {
               color: "white",
               boxShadow: "0 0 20px rgba(255,255,255,0.15)",
               "&:hover": { boxShadow: "0 0 25px rgba(255,255,255,0.4)" },
-              minWidth: 200,
+              minWidth: 220,
+              width: { xs: "100%", sm: "auto" },
             }}
           >
             <CardContent sx={{ textAlign: "center" }}>
@@ -233,7 +233,7 @@ export default function ContactSection() {
             background: "rgba(255,255,255,0.05)",
             backdropFilter: "blur(10px)",
             borderRadius: "20px",
-            p: 4,
+            p: { xs: 3, sm: 4 },
             boxShadow: "0 0 20px rgba(255,255,255,0.15)",
             display: "flex",
             flexDirection: "column",
@@ -248,9 +248,7 @@ export default function ContactSection() {
             fullWidth
             variant="outlined"
             InputLabelProps={{ style: { color: "#aaa" } }}
-            InputProps={{
-              style: { color: "white" },
-            }}
+            InputProps={{ style: { color: "white" } }}
           />
           <TextField
             label="Your Email"
@@ -261,9 +259,7 @@ export default function ContactSection() {
             fullWidth
             variant="outlined"
             InputLabelProps={{ style: { color: "#aaa" } }}
-            InputProps={{
-              style: { color: "white" },
-            }}
+            InputProps={{ style: { color: "white" } }}
           />
           <TextField
             label="Message"
@@ -275,17 +271,15 @@ export default function ContactSection() {
             fullWidth
             variant="outlined"
             InputLabelProps={{ style: { color: "#aaa" } }}
-            InputProps={{
-              style: { color: "white" },
-            }}
+            InputProps={{ style: { color: "white" } }}
           />
           <Button
             type="submit"
             variant="contained"
             sx={{
               alignSelf: "center",
-              px: 6,
-              py: 1.5,
+              px: { xs: 4, sm: 6 },
+              py: { xs: 1, sm: 1.5 },
               borderRadius: "30px",
               background: "linear-gradient(90deg, #7f00ff, #e100ff)",
               boxShadow: "0 0 20px rgba(255,0,255,0.4)",

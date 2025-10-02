@@ -12,9 +12,9 @@ import TorchRevealSection from "../Style/TorchRevealSection";
 
 const experiences = [
   {
-    title: "Web Developer",
+    title: "Full-stack Developer",
     company: "RUTEE",
-    period: "Jun 2025 - Aug 2025",
+    period: "Jun 2025 - Present",
     description: [
       "Built the entire platform with personality tests",
       "Content management for articles & resources",
@@ -27,12 +27,12 @@ const experiences = [
     company: "Freelance / Self-Employed",
     period: "Jul 2024 – Present",
     description: [
-      "Prepared datasets and annotation for ML/AI projects",
-      "Worked with Python, NLP & linguistics",
+      "Prepared datasets and annotation for ML/AI projects especially in Audio, Image, and Video labeling",
+      "Worked on CVAT",
     ],
   },
   {
-    title: "Assistant Team Lead",
+    title: "Web Developer Assistant Team Lead",
     company: "GAOTek Inc",
     period: "May 2025 – Jul 2025",
     description: [
@@ -42,12 +42,30 @@ const experiences = [
     ],
   },
   {
-    title: "Web Content Manager",
-    company: "New York, US",
+    title: "Web Developer",
+    company: "GAOTek Inc",
     period: "Mar 2025 – May 2025",
     description: [
       "Oversaw content upload & management",
       "Ensured brand consistency and UX optimization",
+    ],
+  },
+  {
+    title: "Social Media Team Leader",
+    company: "Oigetit.ai",
+    period: "Jan 2024 – Mar 2025",
+    description: [
+      "Manage team including assistance in recruitment, training, and scheduling",
+      "Ensured brand consistency and Visibility",
+    ],
+  },
+  {
+    title: "Social Media Manager",
+    company: "Oigetit.ai",
+    period: "Aug 2024 – Jan 2025",
+    description: [
+      "Delivering high quality design for brand consistency",
+      "SEO optimization and audience engagement",
     ],
   },
 ];

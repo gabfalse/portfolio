@@ -127,7 +127,7 @@ function LandingPage() {
                 textShadow:
                   "0 0 12px rgba(0,255,255,0.5), 0 0 18px rgba(255,0,255,0.4)",
                 letterSpacing: "1.5px",
-                mb: 1.5,
+                mb: 0.5,
                 animation: "pulseGlow 3s infinite alternate",
                 "@keyframes pulseGlow": {
                   "0%": { textShadow: "0 0 8px rgba(0,255,255,0.5)" },
@@ -136,6 +136,30 @@ function LandingPage() {
               }}
             >
               🚀 Available for Work, Freelance & Collaborations
+            </Typography>
+
+            {/* Github link */}
+            <Typography
+              component="a"
+              href="https://github.com/gabfalse" // ganti dengan GitHub kamu
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{
+                fontFamily: '"Orbitron", monospace',
+                fontSize: { xs: "0.9rem", sm: "1rem" },
+                fontWeight: 500,
+                textDecoration: "none",
+                background: "linear-gradient(90deg, #ff9900, #ff00ff)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                textShadow: "0 0 10px rgba(255,153,0,0.5)",
+                transition: "0.3s ease",
+                "&:hover": {
+                  textShadow: "0 0 20px rgba(255,0,255,0.8)",
+                },
+              }}
+            >
+              🌐 Check out my projects on GitHub
             </Typography>
 
             {/* Typing effect */}
@@ -210,7 +234,7 @@ function LandingPage() {
                     px: 2,
                   }}
                 >
-                  🔮 Hover the magic torch to reveal secrets ✨
+                  🔮 Click / Hover with the magic torch to reveal secrets ✨
                 </Typography>
               )}
 

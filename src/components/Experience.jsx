@@ -16,7 +16,7 @@ const experiences = [
     company: "RUTEE",
     period: "Jun 2025 - Present",
     description: [
-      "Built the entire platform with personality tests",
+      "Built the entire platform from scratches",
       "Content management for articles & resources",
       "Full-stack dev, DB design, backend API, responsive UI/UX",
       "Deployment, hosting, maintenance",

@@ -38,15 +38,14 @@ export default function ContactSection() {
       sx={{
         py: { xs: 8, sm: 12 },
         position: "relative",
-        background:
-          "linear-gradient(180deg, rgba(56,0,60,0.95) 0%, rgba(10,10,30,0.98) 100%)",
+        background: "transparent", // hilangkan background block
         color: "white",
         overflow: "hidden",
       }}
     >
       {/* Aurora effect */}
       <motion.div
-        animate={{ x: [0, 40, -40, 0], opacity: [0.6, 1, 0.6] }}
+        animate={{ x: [0, 40, -40, 0], opacity: [0.5, 0.9, 0.5] }}
         transition={{ repeat: Infinity, duration: 15 }}
         style={{
           position: "absolute",
@@ -55,12 +54,12 @@ export default function ContactSection() {
           width: "80%",
           height: 300,
           background:
-            "linear-gradient(120deg, rgba(120,0,255,0.3), rgba(0,200,255,0.2), transparent)",
+            "linear-gradient(120deg, rgba(0,255,200,0.25), rgba(0,200,255,0.15), transparent)",
           filter: "blur(100px)",
         }}
       />
 
-      {/* Glowing orbs */}
+      {/* Glowing orb */}
       <motion.div
         animate={{ y: [0, -30, 0] }}
         transition={{ repeat: Infinity, duration: 10 }}
@@ -72,7 +71,7 @@ export default function ContactSection() {
           height: 150,
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(0,200,255,0.6), transparent)",
+            "radial-gradient(circle, rgba(0,255,200,0.5), transparent)",
           filter: "blur(80px)",
         }}
       />
@@ -99,31 +98,6 @@ export default function ContactSection() {
         />
       ))}
 
-      {/* Fade overlays */}
-      <Box
-        sx={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          height: "15%",
-          background:
-            "linear-gradient(to bottom, rgba(0,0,0,0.9), transparent)",
-          zIndex: 1,
-        }}
-      />
-      <Box
-        sx={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: "15%",
-          background: "linear-gradient(to top, rgba(0,0,0,0.9), transparent)",
-          zIndex: 1,
-        }}
-      />
-
       {/* Content */}
       <Container maxWidth="md" sx={{ position: "relative", zIndex: 2 }}>
         <Typography
@@ -132,8 +106,9 @@ export default function ContactSection() {
           gutterBottom
           sx={{
             fontWeight: "bold",
-            textShadow: "0 0 20px rgba(255,255,255,0.6)",
+            textShadow: "0 0 20px rgba(0,255,200,0.6)",
             fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
+            color: "#00ffc8",
           }}
         >
           Get in Touch ✨
@@ -157,7 +132,7 @@ export default function ContactSection() {
             mb: 6,
             fontWeight: "bold",
             fontSize: { xs: "1rem", sm: "1.2rem" },
-            color: "#00ffcc",
+            color: "#00ffc8",
             textShadow: "0 0 15px rgba(0,255,200,0.7)",
           }}
         >
@@ -173,13 +148,13 @@ export default function ContactSection() {
         >
           <Card
             sx={{
-              background: "rgba(255,255,255,0.08)",
+              background: "rgba(0,255,200,0.05)",
               backdropFilter: "blur(12px)",
               borderRadius: "20px",
               p: 2,
               color: "white",
-              boxShadow: "0 0 20px rgba(255,255,255,0.15)",
-              "&:hover": { boxShadow: "0 0 25px rgba(255,255,255,0.4)" },
+              boxShadow: "0 0 20px rgba(0,255,200,0.15)",
+              "&:hover": { boxShadow: "0 0 25px rgba(0,255,200,0.5)" },
               minWidth: 220,
               width: { xs: "100%", sm: "auto" },
             }}
@@ -187,7 +162,7 @@ export default function ContactSection() {
             <CardContent sx={{ textAlign: "center" }}>
               <IconButton
                 href="mailto:gabrielalfarez14@gmail.com"
-                sx={{ color: "white" }}
+                sx={{ color: "#00ffc8" }}
               >
                 <EmailIcon fontSize="large" />
               </IconButton>
@@ -200,13 +175,13 @@ export default function ContactSection() {
 
           <Card
             sx={{
-              background: "rgba(255,255,255,0.08)",
+              background: "rgba(0,255,200,0.05)",
               backdropFilter: "blur(12px)",
               borderRadius: "20px",
               p: 2,
               color: "white",
-              boxShadow: "0 0 20px rgba(255,255,255,0.15)",
-              "&:hover": { boxShadow: "0 0 25px rgba(255,255,255,0.4)" },
+              boxShadow: "0 0 20px rgba(0,255,200,0.15)",
+              "&:hover": { boxShadow: "0 0 25px rgba(0,255,200,0.5)" },
               minWidth: 220,
               width: { xs: "100%", sm: "auto" },
             }}
@@ -215,7 +190,7 @@ export default function ContactSection() {
               <IconButton
                 href="https://www.linkedin.com/in/gabriel-mohammad-alfarez-fahlepi-9144362bb/"
                 target="_blank"
-                sx={{ color: "white" }}
+                sx={{ color: "#00ffc8" }}
               >
                 <LinkedInIcon fontSize="large" />
               </IconButton>
@@ -230,11 +205,11 @@ export default function ContactSection() {
           component="form"
           onSubmit={handleSubmit}
           sx={{
-            background: "rgba(255,255,255,0.05)",
+            background: "rgba(0,255,200,0.05)",
             backdropFilter: "blur(10px)",
             borderRadius: "20px",
             p: { xs: 3, sm: 4 },
-            boxShadow: "0 0 20px rgba(255,255,255,0.15)",
+            boxShadow: "0 0 20px rgba(0,255,200,0.15)",
             display: "flex",
             flexDirection: "column",
             gap: 3,
@@ -281,11 +256,11 @@ export default function ContactSection() {
               px: { xs: 4, sm: 6 },
               py: { xs: 1, sm: 1.5 },
               borderRadius: "30px",
-              background: "linear-gradient(90deg, #7f00ff, #e100ff)",
-              boxShadow: "0 0 20px rgba(255,0,255,0.4)",
+              background: "linear-gradient(90deg, #00ffc8, #00bfa5)",
+              boxShadow: "0 0 20px rgba(0,255,200,0.4)",
               "&:hover": {
-                background: "linear-gradient(90deg, #9a00ff, #ff00cc)",
-                boxShadow: "0 0 30px rgba(255,0,255,0.7)",
+                background: "linear-gradient(90deg, #00ffd5, #00e0b8)",
+                boxShadow: "0 0 30px rgba(0,255,200,0.7)",
               },
             }}
           >

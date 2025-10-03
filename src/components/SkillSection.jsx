@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Typography,
@@ -7,6 +7,7 @@ import {
   CardContent,
   useMediaQuery,
   useTheme,
+  Fade,
 } from "@mui/material";
 import { Radar } from "react-chartjs-2";
 import {
@@ -34,8 +35,8 @@ ChartJS.register(
 
 export default function SkillSection() {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // cek layar kecil
-
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const [visible, setVisible] = useState(false);
   const [skills] = useState([
     { name: "React", level: 85, stars: 4 },
     { name: "PHP", level: 80, stars: 4 },
@@ -49,13 +50,37 @@ export default function SkillSection() {
   ]);
 
   const [selectedSkill, setSelectedSkill] = useState(skills[0]);
+  const [animationProgress, setAnimationProgress] = useState(0);
+
+  useEffect(() => {
+    // fade in saat pertama load
+    const timer = setTimeout(() => setVisible(true), 300);
+
+    // animasi line-drawing chart
+    if (visible) {
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += 5;
+        if (progress > 100) {
+          progress = 100;
+          clearInterval(interval);
+        }
+        setAnimationProgress(progress);
+      }, 50);
+    }
+
+    return () => clearTimeout(timer);
+  }, [visible]);
+
+  // animasi chart -> data mengikuti progress
+  const animatedLevels = skills.map((s) => (s.level * animationProgress) / 100);
 
   const data = {
     labels: skills.map((s) => s.name),
     datasets: [
       {
         label: "Skill Level",
-        data: skills.map((s) => s.level),
+        data: animatedLevels,
         backgroundColor: "rgba(0, 255, 200, 0.2)",
         borderColor: "#00ffc8",
         pointBackgroundColor: "#00ffc8",
@@ -105,7 +130,7 @@ export default function SkillSection() {
         py: 10,
       }}
     >
-      {/* Background hanya di section ini */}
+      {/* Background Particles */}
       <Particles
         id="tsparticles-skill"
         init={particlesInit}
@@ -146,74 +171,115 @@ export default function SkillSection() {
         }}
       />
 
-      {/* Konten */}
+      {/* Konten dengan Fade */}
       <Container sx={{ position: "relative", zIndex: 1 }}>
-        <Typography
-          variant="h4"
-          align="center"
-          gutterBottom
-          sx={{ fontWeight: "bold", mb: 6 }}
-        >
-          Skills Overview
-        </Typography>
+        <Fade in={visible} timeout={1000}>
+          <Box>
+            {/* Title pulsing */}
+            <Typography
+              variant="h4"
+              align="center"
+              gutterBottom
+              sx={{
+                fontWeight: "bold",
+                mb: 6,
+                textShadow: "0 0 10px rgba(0,255,200,0.8)",
+                animation: "pulse 2s infinite",
+                "@keyframes pulse": {
+                  "0%, 100%": { textShadow: "0 0 10px rgba(0,255,200,0.8)" },
+                  "50%": { textShadow: "0 0 20px rgba(0,255,200,1)" },
+                },
+              }}
+            >
+              Skills Overview
+            </Typography>
 
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: isMobile ? "column" : "row", // responsif
-            justifyContent: "center",
-            alignItems: "center",
-            gap: 6,
-          }}
-        >
-          {/* Radar Chart */}
-          <Box
-            sx={{
-              width: isMobile ? "100%" : 450,
-              height: isMobile ? 300 : 450,
-            }}
-          >
-            <Radar data={data} options={options} />
-          </Box>
-
-          {/* Detail Card */}
-          <Card
-            sx={{
-              bgcolor: "rgba(20,20,35,0.8)",
-              color: "white",
-              borderRadius: 3,
-              p: 2,
-              minWidth: isMobile ? "100%" : 280,
-              backdropFilter: "blur(10px)",
-              boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
-            }}
-          >
-            <CardContent>
-              <Typography variant="h5" fontWeight="bold" gutterBottom>
-                {selectedSkill.name}
-              </Typography>
-              <Typography variant="h6" gutterBottom>
-                {selectedSkill.level}% Proficiency
-              </Typography>
-              <Typography variant="body2" gutterBottom>
-                {selectedSkill.level >= 80
-                  ? "Advanced Level"
-                  : selectedSkill.level >= 50
-                  ? "Intermediate"
-                  : "Beginner"}
-              </Typography>
-              <Box>
-                {[...Array(5)].map((_, i) =>
-                  i < selectedSkill.stars ? (
-                    <StarIcon key={i} sx={{ color: "#00ffc8" }} />
-                  ) : (
-                    <StarBorderIcon key={i} sx={{ color: "#555" }} />
-                  )
-                )}
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: isMobile ? "column" : "row",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: 6,
+              }}
+            >
+              {/* Radar Chart */}
+              <Box
+                sx={{
+                  width: isMobile ? "100%" : 450,
+                  height: isMobile ? 300 : 450,
+                }}
+              >
+                <Radar data={data} options={options} />
               </Box>
-            </CardContent>
-          </Card>
-        </Box>
+
+              {/* Detail Card dengan floating animasi */}
+              <Fade in={visible} timeout={1200}>
+                <Card
+                  sx={{
+                    bgcolor: "rgba(20,20,35,0.8)",
+                    color: "white",
+                    borderRadius: 3,
+                    p: 2,
+                    minWidth: isMobile ? "100%" : 280,
+                    backdropFilter: "blur(10px)",
+                    boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
+                    animation: "float 4s ease-in-out infinite",
+                    "@keyframes float": {
+                      "0%, 100%": { transform: "translateY(0px)" },
+                      "50%": { transform: "translateY(-10px)" },
+                    },
+                  }}
+                >
+                  <CardContent>
+                    <Typography variant="h5" fontWeight="bold" gutterBottom>
+                      {selectedSkill.name}
+                    </Typography>
+                    <Typography variant="h6" gutterBottom>
+                      {selectedSkill.level}% Proficiency
+                    </Typography>
+                    <Typography variant="body2" gutterBottom>
+                      {selectedSkill.level >= 80
+                        ? "Advanced Level"
+                        : selectedSkill.level >= 50
+                        ? "Intermediate"
+                        : "Beginner"}
+                    </Typography>
+                    <Box>
+                      {[...Array(5)].map((_, i) =>
+                        i < selectedSkill.stars ? (
+                          <StarIcon
+                            key={i}
+                            sx={{
+                              color: "#00ffc8",
+                              transition: "0.3s",
+                              "&:hover": {
+                                color: "#00ffe0",
+                                textShadow: "0 0 10px #00ffc8",
+                              },
+                            }}
+                          />
+                        ) : (
+                          <StarBorderIcon
+                            key={i}
+                            sx={{
+                              color: "#555",
+                              transition: "0.3s",
+                              "&:hover": {
+                                color: "#00ffc8",
+                                textShadow: "0 0 10px #00ffc8",
+                              },
+                            }}
+                          />
+                        )
+                      )}
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Fade>
+            </Box>
+          </Box>
+        </Fade>
       </Container>
     </Box>
   );

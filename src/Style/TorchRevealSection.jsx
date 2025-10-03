@@ -48,11 +48,11 @@ export default function TorchReveal({ children, radius = 300 }) {
           position: "absolute",
           inset: 0,
           background: `radial-gradient(
-            circle ${radius}px at ${pos.x}px ${pos.y}px,
-            rgba(0,0,0,0) 0%,
-            rgba(0,0,0,0.2) 60%,
-            rgba(0,0,0,0.8) 100%
-          )`,
+      circle ${radius}px at ${pos.x}px ${pos.y}px,
+      rgba(0,0,0,0) 0%,
+      rgba(0,0,0,0.05) 60%,
+      rgba(0,0,0,0.5) 100%
+    )`,
           pointerEvents: "none",
           zIndex: 2,
         }}

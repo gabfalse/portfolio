@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Box, Typography, Container, Grid, Fade } from "@mui/material";
-import MagicBackground from "../Style/MagicBackground";
 
 function LandingPage() {
   const [visible, setVisible] = useState(true);
@@ -88,11 +87,9 @@ function LandingPage() {
           position: "relative",
           overflow: "hidden",
 
-          zIndex: 2, // konten tetap di atas background
+          zIndex: 2,
         }}
       >
-        {/* === MAGIC BACKGROUND === */}
-        <MagicBackground />
         {/* ================= MAIN CONTENT ================= */}
         <Container maxWidth="lg" sx={{ position: "relative", zIndex: 3 }}>
           <Grid container spacing={4} direction="column" alignItems="center">
@@ -103,12 +100,10 @@ function LandingPage() {
               mt={5}
               gutterBottom
               sx={{
-                background: `linear-gradient(90deg, hsla(${hue},100%,70%,1), hsla(${
-                  (hue + 90) % 360
-                },100%,70%,1))`,
+                background: `linear-gradient(90deg, #00ffc8, #00e0ff)`,
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
-                textShadow: "0 0 12px rgba(255,255,255,0.6)",
+                textShadow: "0 0 15px rgba(0,255,200,0.8)",
               }}
             >
               Gabriel Moh AF
@@ -121,58 +116,58 @@ function LandingPage() {
                 fontFamily: '"Orbitron", "Audiowide", monospace',
                 fontSize: { xs: "1rem", sm: "1.2rem" },
                 fontWeight: 600,
-                background: "linear-gradient(90deg, #00f5ff, #ff00ff)",
+                background: "linear-gradient(90deg, #00ffc8, #00e0ff)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 textShadow:
-                  "0 0 12px rgba(0,255,255,0.5), 0 0 18px rgba(255,0,255,0.4)",
+                  "0 0 12px rgba(0,255,200,0.7), 0 0 18px rgba(0,224,255,0.6)",
                 letterSpacing: "1.5px",
                 mb: 0.5,
                 animation: "pulseGlow 3s infinite alternate",
                 "@keyframes pulseGlow": {
-                  "0%": { textShadow: "0 0 8px rgba(0,255,255,0.5)" },
-                  "100%": { textShadow: "0 0 20px rgba(255,0,255,0.8)" },
+                  "0%": { textShadow: "0 0 8px rgba(0,255,200,0.6)" },
+                  "100%": { textShadow: "0 0 20px rgba(0,224,255,1)" },
                 },
               }}
             >
-              🚀 Available for Work, Freelance & Collaborations
+              Available for Work, Freelance & Collaborations
             </Typography>
 
             {/* Github link */}
             <Typography
               component="a"
-              href="https://github.com/gabfalse" // ganti dengan GitHub kamu
-              target="_blank"
+              href="#projects"
               rel="noopener noreferrer"
               sx={{
                 fontFamily: '"Orbitron", monospace',
                 fontSize: { xs: "0.9rem", sm: "1rem" },
                 fontWeight: 500,
                 textDecoration: "none",
-                background: "linear-gradient(90deg, #ff9900, #ff00ff)",
+                background: "linear-gradient(90deg, #00ffc8, #00e0ff)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
-                textShadow: "0 0 10px rgba(255,153,0,0.5)",
+                textShadow: "0 0 10px rgba(0,255,200,0.6)",
                 transition: "0.3s ease",
                 "&:hover": {
-                  textShadow: "0 0 20px rgba(255,0,255,0.8)",
+                  textShadow: "0 0 20px rgba(0,255,200,1)",
                 },
               }}
             >
-              🌐 Check out my projects on GitHub
+              Take a peek at my projects
             </Typography>
 
             {/* Typing effect */}
             <Typography
               variant="h6"
               sx={{
-                color: "text.secondary",
+                color: "#00ffc8",
                 fontFamily: "monospace",
                 minHeight: "1.5em",
                 "&::after": {
                   content: '"|"',
                   animation: "blink 1s step-end infinite",
                   marginLeft: "4px",
+                  color: "#00ffc8",
                 },
                 "@keyframes blink": {
                   "0%, 100%": { opacity: 1 },
@@ -198,11 +193,11 @@ function LandingPage() {
                 borderRadius: 2,
                 position: "relative",
                 overflow: "hidden",
-                background: "rgba(255,255,255,0.05)",
-                backdropFilter: "blur(4px)",
+                background: "rgba(0,20,30,0.6)",
+                backdropFilter: "blur(6px)",
                 userSelect: "none",
                 cursor: "none",
-                border: "1px solid rgba(255,255,255,0.3)",
+                border: "1px solid rgba(0,255,200,0.3)",
                 fontFamily: "monospace",
                 display: "flex",
                 alignItems: "center",
@@ -214,9 +209,9 @@ function LandingPage() {
                       content: '""',
                       position: "absolute",
                       inset: 0,
-                      background: `radial-gradient(circle 130px at ${mousePos.x}px ${mousePos.y}px, rgba(255,255,255,0.95), transparent 80%)`,
+                      background: `radial-gradient(circle 130px at ${mousePos.x}px ${mousePos.y}px, rgba(0,255,200,0.95), transparent 80%)`,
                       WebkitMask: `radial-gradient(circle 130px at ${mousePos.x}px ${mousePos.y}px, #fff 80%, transparent 100%)`,
-                      backdropFilter: "blur(6px)",
+                      backdropFilter: "blur(8px)",
                       pointerEvents: "none",
                     }
                   : {},
@@ -234,7 +229,7 @@ function LandingPage() {
                     px: 2,
                   }}
                 >
-                  🔮 Click / Hover with the magic torch to reveal secrets ✨
+                  🔮 Hover with the magic torch to reveal secrets ✨
                 </Typography>
               )}
 
@@ -260,12 +255,12 @@ function LandingPage() {
                     fontFamily: '"Orbitron", "Audiowide", monospace',
                     fontWeight: 700,
                     background: hovering
-                      ? "linear-gradient(90deg, #00f5ff, #ff00ff)"
+                      ? "linear-gradient(90deg, #00ffc8, #00e0ff)"
                       : "transparent",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     textShadow: hovering
-                      ? "0 0 15px rgba(0, 255, 255, 0.7)"
+                      ? "0 0 15px rgba(0,255,200,0.7)"
                       : "none",
                     mb: 2,
                     transition: "all 0.4s ease",

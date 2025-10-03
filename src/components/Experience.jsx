@@ -9,6 +9,7 @@ import {
   useTheme,
 } from "@mui/material";
 import TorchRevealSection from "../Style/TorchRevealSection";
+import { motion } from "framer-motion";
 
 const experiences = [
   {
@@ -77,7 +78,7 @@ export default function Experience() {
   return (
     <TorchRevealSection radius={300}>
       <Box>
-        {/* Garis timeline di tengah */}
+        {/* Timeline Line */}
         <Box
           sx={{
             position: "absolute",
@@ -86,7 +87,7 @@ export default function Experience() {
             left: "50%",
             transform: "translateX(-50%)",
             width: "4px",
-            background: "linear-gradient(to bottom, #00d4ff, transparent)",
+            background: "linear-gradient(to bottom, #00ffc8, transparent)",
             zIndex: 1,
             borderRadius: 2,
           }}
@@ -98,20 +99,21 @@ export default function Experience() {
             align="center"
             gutterBottom
             sx={{
-              color: "#00d4ff",
+              color: "#00ffc8",
               fontWeight: "bold",
               mb: 4,
-              textShadow: "0 0 10px rgba(0,212,255,0.7)",
+              textShadow: "0 0 10px rgba(0,255,200,0.7)",
+              fontFamily: '"Orbitron", "Audiowide", monospace',
             }}
           >
             My Experience
           </Typography>
 
-          {/* Divider atas */}
+          {/* Divider Atas */}
           <Divider
             sx={{
               mb: 8,
-              borderColor: "rgba(0,212,255,0.4)",
+              borderColor: "rgba(0,255,200,0.3)",
             }}
           />
 
@@ -129,7 +131,7 @@ export default function Experience() {
                 position: "relative",
               }}
             >
-              {/* === NODE DI GARIS TIMELINE === */}
+              {/* Timeline Node */}
               <Box
                 sx={{
                   position: "absolute",
@@ -139,83 +141,96 @@ export default function Experience() {
                   width: 18,
                   height: 18,
                   borderRadius: "50%",
-                  backgroundColor: "#00d4ff",
-                  boxShadow: "0 0 20px 6px rgba(0,212,255,0.8)", // efek glow
-                  zIndex: 5, // di atas TorchReveal
+                  backgroundColor: "#00ffc8",
+                  boxShadow: "0 0 20px 6px rgba(0,255,200,0.8)",
+                  zIndex: 5,
                 }}
               />
 
-              {/* === KARTU EXPERIENCE === */}
-              <Paper
-                elevation={0}
-                sx={{
-                  width: isMobile ? "90%" : "40%",
-                  backgroundColor: "rgba(10,20,40,0.95)",
-                  border: "1px solid rgba(0,212,255,0.2)",
-                  borderRadius: 3,
-                  boxShadow: "0 0 20px rgba(0,212,255,0.3)",
-                  position: "relative",
-                  zIndex: 2,
-                }}
+              {/* Animated Experience Card */}
+              <motion.div
+                initial={{ opacity: 0, y: 60 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.8, delay: i * 0.2 }}
+                style={{ width: isMobile ? "90%" : "40%" }}
               >
-                {/* Header */}
-                <Box
+                <Paper
+                  elevation={0}
                   sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 1,
-                    px: 2,
-                    py: 1,
-                    bgcolor: "rgba(20,30,50,0.9)",
+                    backgroundColor: "rgba(10,20,30,0.95)",
+                    border: "1px solid rgba(0,255,200,0.2)",
+                    borderRadius: 3,
+                    boxShadow: "0 0 25px rgba(0,255,200,0.25)",
+                    position: "relative",
+                    zIndex: 2,
                   }}
                 >
+                  {/* Header Bar */}
                   <Box
                     sx={{
-                      width: 12,
-                      height: 12,
-                      borderRadius: "50%",
-                      bgcolor: "#ff5f56",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 1,
+                      px: 2,
+                      py: 1,
+                      bgcolor: "rgba(20,30,50,0.9)",
+                      borderBottom: "1px solid rgba(0,255,200,0.15)",
                     }}
-                  />
-                  <Box
-                    sx={{
-                      width: 12,
-                      height: 12,
-                      borderRadius: "50%",
-                      bgcolor: "#ffbd2e",
-                    }}
-                  />
-                  <Box
-                    sx={{
-                      width: 12,
-                      height: 12,
-                      borderRadius: "50%",
-                      bgcolor: "#27c93f",
-                    }}
-                  />
-                </Box>
-
-                {/* Content */}
-                <Box sx={{ p: 3, textAlign: "left" }}>
-                  <Typography variant="h6" sx={{ color: "#fff", mb: 1 }}>
-                    {exp.title}
-                  </Typography>
-                  <Typography
-                    variant="subtitle1"
-                    sx={{ color: "#00d4ff", mb: 2 }}
                   >
-                    {exp.company} • {exp.period}
-                  </Typography>
-                  {exp.description.map((pt, idx) => (
-                    <Typography
-                      key={idx}
-                      sx={{ color: "#ccd6f6", fontSize: "0.95rem", mb: 1 }}
-                    >
-                      • {pt}
+                    <Box
+                      sx={{
+                        width: 12,
+                        height: 12,
+                        borderRadius: "50%",
+                        bgcolor: "#ff5f56",
+                      }}
+                    />
+                    <Box
+                      sx={{
+                        width: 12,
+                        height: 12,
+                        borderRadius: "50%",
+                        bgcolor: "#ffbd2e",
+                      }}
+                    />
+                    <Box
+                      sx={{
+                        width: 12,
+                        height: 12,
+                        borderRadius: "50%",
+                        bgcolor: "#27c93f",
+                      }}
+                    />
+                  </Box>
+
+                  {/* Content */}
+                  <Box sx={{ p: 3, textAlign: "left" }}>
+                    <Typography variant="h6" sx={{ color: "#fff", mb: 1 }}>
+                      {exp.title}
                     </Typography>
-                  ))}
-                </Box>
-              </Paper>
+                    <Typography
+                      variant="subtitle1"
+                      sx={{ color: "#00ffc8", mb: 2 }}
+                    >
+                      {exp.company} • {exp.period}
+                    </Typography>
+                    {exp.description.map((pt, idx) => (
+                      <Typography
+                        key={idx}
+                        sx={{
+                          color: "#ccd6f6",
+                          fontSize: "0.95rem",
+                          mb: 1,
+                          lineHeight: 1.6,
+                        }}
+                      >
+                        • {pt}
+                      </Typography>
+                    ))}
+                  </Box>
+                </Paper>
+              </motion.div>
             </Box>
           ))}
 
@@ -223,7 +238,7 @@ export default function Experience() {
           <Divider
             sx={{
               mt: 10,
-              borderColor: "rgba(0,212,255,0.4)",
+              borderColor: "rgba(0,255,200,0.3)",
             }}
           />
         </Container>

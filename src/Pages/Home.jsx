@@ -16,18 +16,17 @@ export default function Home() {
       <Box id="landing">
         <LandingPage />
       </Box>
+      <Box id="projects">
+        <ProjectsSection />
+      </Box>
 
-      <FadeSection id="skills">
+      <Box id="skills">
         <SkillsSection />
-      </FadeSection>
+      </Box>
 
       <Box id="experience">
         <Experience />
       </Box>
-
-      {/* <FadeSection id="projects">
-        <ProjectsSection />
-      </FadeSection> */}
 
       <Box id="contact">
         <ContactSection />

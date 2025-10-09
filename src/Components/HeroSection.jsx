@@ -37,7 +37,7 @@ export default function HeroSection() {
         p: 4,
         textAlign: "center",
         mt: 5,
-        height: "100vh",
+        height: "80vh",
         fontFamily: "'Poppins', sans-serif",
         position: "relative",
       }}

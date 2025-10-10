@@ -11,6 +11,11 @@ export default function Footer() {
         fontFamily: "'Poppins', sans-serif",
       }}
     >
+      <img
+        src="https://visitor-badge.laobi.icu/badge?page_id=gabfalse.portfolio"
+        alt="visitor count"
+        style={{ borderRadius: "8px", marginTop: "8px" }}
+      />
       <Typography variant="body2" sx={{ mb: 1 }}>
         Thanks for visiting!
       </Typography>

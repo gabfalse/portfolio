@@ -40,7 +40,7 @@ export default function Music() {
             color: "black",
             fontWeight: 600,
             borderRadius: "30px",
-            px: 4,
+            px: 2,
             py: 1.5,
             textTransform: "none",
             fontSize: "1.1rem",
@@ -49,7 +49,7 @@ export default function Music() {
             },
           }}
         >
-          Cheer Up 🎵
+          Cheer Up
         </Button>
       ) : (
         <Fade in timeout={800}>

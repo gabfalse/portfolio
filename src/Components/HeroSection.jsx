@@ -36,8 +36,8 @@ export default function HeroSection() {
         color: "white",
         p: 4,
         textAlign: "center",
-        mt: 5,
-        height: "75vh",
+        mt: 4,
+
         fontFamily: "'Poppins', sans-serif",
         position: "relative",
       }}
@@ -57,7 +57,7 @@ export default function HeroSection() {
         variant="subtitle1"
         sx={{
           color: "#b0b0b0",
-          mb: 2,
+          mb: 1,
           fontWeight: 300,
         }}
       >
@@ -88,7 +88,7 @@ export default function HeroSection() {
           sx={{
             display: "block",
             fontWeight: 400,
-            mb: 1,
+
             lineHeight: 1.6,
           }}
         >
@@ -117,8 +117,8 @@ export default function HeroSection() {
               color: "black",
               fontWeight: 600,
               borderRadius: "30px",
-              px: 3,
-              py: 1.2,
+              px: 2,
+              py: 1,
               textTransform: "none",
               fontSize: "1rem",
               boxShadow: "0 4px 20px rgba(0,188,212,0.4)",
@@ -127,7 +127,7 @@ export default function HeroSection() {
               },
             }}
           >
-            Cheer Up 🎵
+            Cheer Up
           </Button>
         ) : (
           <Fade in={showPlayer} timeout={500}>

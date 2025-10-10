@@ -25,7 +25,7 @@ export default function Contact() {
         sx={{
           display: "flex",
           justifyContent: "center",
-          mt: 4,
+          mt: 2,
           gap: 2,
         }}
       >

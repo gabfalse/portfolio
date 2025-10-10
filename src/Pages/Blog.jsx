@@ -49,7 +49,7 @@ export default function Blog() {
     <Box
       sx={{
         minHeight: "100vh",
-        bgcolor: "#121212",
+        bgcolor: "#222",
         color: "#fff",
         fontFamily: "'Poppins', sans-serif",
         pt: 12,

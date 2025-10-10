@@ -10,6 +10,7 @@ import {
   Modal,
   Fade,
   Backdrop,
+  Link,
 } from "@mui/material";
 import { Javascript, Html, Css, Storage } from "@mui/icons-material";
 import "@fontsource/poppins";
@@ -212,6 +213,20 @@ export default function Skill() {
         applications.
       </Typography>
 
+      {/* 👇 Added section */}
+      <Typography
+        variant="body2"
+        sx={{
+          color: "#9e9e9e",
+          mb: 1,
+          fontSize: "0.9rem",
+          maxWidth: 520,
+          mx: "auto",
+        }}
+      >
+        If you are a recruiter, feel free to contact me for my Resume.
+      </Typography>
+
       <Button
         variant="outlined"
         onClick={handleOpen}
@@ -220,7 +235,6 @@ export default function Skill() {
           color: "#00bcd4",
           textTransform: "none",
           borderRadius: 50,
-
           fontWeight: 500,
           transition: "all 0.3s ease",
           "&:hover": {
@@ -233,6 +247,7 @@ export default function Skill() {
         View Skills
       </Button>
 
+      {/* Modal Section */}
       <Modal
         open={open}
         onClose={handleClose}

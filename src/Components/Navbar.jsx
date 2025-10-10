@@ -23,6 +23,7 @@ export default function Navbar() {
       <AppBar
         position="fixed"
         sx={{
+          height: "8vh",
           backgroundColor: "#222",
           boxShadow: "0 2px 8px rgba(0,0,0,0.3)",
         }}

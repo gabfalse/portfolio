@@ -163,7 +163,7 @@ export default function Skill() {
               elevation={4}
               sx={{
                 backdropFilter: "blur(10px)",
-                background: "rgba(255,255,255,0.05)",
+                background: "#222",
                 borderRadius: "16px",
                 width: "65px",
                 height: "65px",
@@ -224,7 +224,7 @@ export default function Skill() {
           mx: "auto",
         }}
       >
-        If you are a recruiter, feel free to contact me for my Resume.
+        If you are a recruiter, feel free to contact me for my resume.
       </Typography>
 
       <Button
@@ -264,7 +264,7 @@ export default function Skill() {
               transform: "translate(-50%, -50%)",
               width: "90%",
               maxWidth: 650,
-              bgcolor: "rgba(20,20,20,0.9)",
+              bgcolor: "#222",
               borderRadius: "20px",
               boxShadow: "0 0 25px rgba(0,188,212,0.3)",
               backdropFilter: "blur(15px)",

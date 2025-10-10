@@ -34,7 +34,7 @@ export default function HeroSection() {
     <Box
       sx={{
         color: "white",
-        p: 4,
+        p: 7,
         textAlign: "center",
         mt: 4,
 
@@ -45,6 +45,7 @@ export default function HeroSection() {
       {/* Profile */}
       <Typography
         variant="h5"
+        mt={2}
         sx={{
           fontWeight: 600,
           letterSpacing: "0.5px",
@@ -88,11 +89,12 @@ export default function HeroSection() {
           sx={{
             display: "block",
             fontWeight: 400,
-
+            color: "#b0b0b0",
             lineHeight: 1.6,
           }}
         >
-          Currently {age} years old, a web developer from Indonesia.
+          Currently {age} years old, a <strong>web developer</strong> from
+          <strong> Indonesia.</strong>
         </Typography>
       </Box>
 

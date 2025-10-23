@@ -9,6 +9,7 @@ import {
   CircularProgress,
   Grid,
   Pagination,
+  Divider,
 } from "@mui/material";
 import { motion } from "framer-motion";
 import AddIcon from "@mui/icons-material/Add";
@@ -157,6 +158,7 @@ export default function Testimonies() {
                 >
                   {item.name}
                 </Typography>
+
                 <Typography
                   variant="body2"
                   sx={{

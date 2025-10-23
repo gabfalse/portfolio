@@ -10,6 +10,8 @@ import HomePage from "./Pages/HomePage";
 import Blog from "./Pages/Blog";
 import Navbar from "./Components/Navbar";
 
+import ProjectShowcase from "./Pages/ProjectShowcase.jsx";
+
 function App() {
   return (
     <BrowserRouter>
@@ -17,6 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/project" element={<ProjectShowcase />} />
       </Routes>
     </BrowserRouter>
   );

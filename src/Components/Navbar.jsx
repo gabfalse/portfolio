@@ -7,7 +7,7 @@ export default function Navbar() {
   const menuItems = [
     { label: "About Me", path: "/" },
     { label: "Blog", path: "/blog" },
-    { label: "Project", path: "https://github.com/gabfalse", external: true },
+    { label: "Project", path: "/project" },
   ];
 
   const handleClick = (item) => {
@@ -36,6 +36,7 @@ export default function Navbar() {
                 onClick={() => handleClick(item)}
                 sx={{
                   color: "#fff",
+                  mb: 2,
                   fontWeight: 500,
                   fontFamily: "'Poppins', sans-serif",
                   textTransform: "none",

@@ -11,6 +11,8 @@ import Blog from "./Pages/Blog";
 import Navbar from "./Components/Navbar";
 
 import ProjectShowcase from "./Pages/ProjectShowcase.jsx";
+import AdminPage from "./Pages/AdminPage.jsx";
+import LoginPage from "./Pages/LoginPage.jsx";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/project" element={<ProjectShowcase />} />
+        <Route path="/inigabrielya" element={<AdminPage />} />
+        <Route path="/mauaturdulu" element={<LoginPage />} />
       </Routes>
     </BrowserRouter>
   );

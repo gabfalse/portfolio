@@ -13,6 +13,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import "@fontsource/poppins";
 import Contact from "./Contact";
 import Skill from "./Skill";
+import RequestService from "./RequestService";
 
 export default function HeroSection() {
   // 🧮 Hitung umur otomatis
@@ -81,6 +82,7 @@ export default function HeroSection() {
 
       {/* Contact */}
       <Contact />
+      <RequestService />
 
       {/* Description */}
       <Box sx={{ mt: 3, maxWidth: 500, mx: "auto" }}>

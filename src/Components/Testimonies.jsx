@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import {
   Box,
   Typography,
@@ -8,8 +7,12 @@ import {
   Button,
   TextField,
   CircularProgress,
+  Grid,
+  Pagination,
 } from "@mui/material";
+import { motion } from "framer-motion";
 import AddIcon from "@mui/icons-material/Add";
+import CloseIcon from "@mui/icons-material/Close";
 import supabase from "../supabaseClient";
 
 export default function Testimonies() {
@@ -20,24 +23,24 @@ export default function Testimonies() {
   const [message, setMessage] = useState("");
   const [name, setName] = useState("");
   const [testimony, setTestimony] = useState("");
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 10;
 
-  // Fetch testimonies from Supabase
+  // === Fetch 20 latest testimonies ===
   useEffect(() => {
     const fetchData = async () => {
       const { data, error } = await supabase
         .from("testimonies")
         .select("id, name, testimony")
         .order("created_at", { ascending: false })
-        .limit(15);
+        .limit(20);
 
       if (!error) setTestimonies(data);
       setLoading(false);
     };
-
     fetchData();
   }, []);
 
-  // Handle submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
@@ -47,12 +50,10 @@ export default function Testimonies() {
       const res = await fetch("https://api.ipify.org?format=json");
       const { ip } = await res.json();
 
-      const { count, error: countError } = await supabase
+      const { count } = await supabase
         .from("testimonies")
         .select("*", { count: "exact", head: true })
         .eq("ip_address", ip);
-
-      if (countError) throw countError;
 
       if (count >= 3) {
         setMessage("You’ve already submitted 3 testimonies from this IP.");
@@ -60,32 +61,27 @@ export default function Testimonies() {
         return;
       }
 
-      const { error } = await supabase.from("testimonies").insert([
-        {
-          ip_address: ip,
-          name,
-          testimony,
-        },
-      ]);
+      const { error } = await supabase
+        .from("testimonies")
+        .insert([{ ip_address: ip, name, testimony }]);
 
       if (error) throw error;
 
-      setMessage("Thank you! Your testimony has been added.");
+      setMessage("✨ Thank you! Your testimony has been added.");
       setName("");
       setTestimony("");
       setOpen(false);
 
-      // Refresh list
       const { data } = await supabase
         .from("testimonies")
         .select("id, name, testimony")
         .order("created_at", { ascending: false })
-        .limit(15);
+        .limit(20);
 
       setTestimonies(data);
     } catch (err) {
       console.error(err);
-      setMessage("Error submitting your testimony.");
+      setMessage("⚠️ Error submitting your testimony.");
     } finally {
       setSubmitting(false);
     }
@@ -94,167 +90,237 @@ export default function Testimonies() {
   if (loading)
     return (
       <Box sx={{ textAlign: "center", mt: 8 }}>
-        <CircularProgress color="primary" />
+        <CircularProgress sx={{ color: "#00e5ff" }} />
       </Box>
     );
 
+  const totalPages = Math.ceil(testimonies.length / itemsPerPage);
+  const paginatedData = testimonies.slice(
+    (page - 1) * itemsPerPage,
+    page * itemsPerPage
+  );
+
   return (
     <Box
-      sx={{ color: "white", py: 8, position: "relative", overflow: "hidden" }}
+      sx={{
+        mt: 10,
+        py: { xs: 6, md: 8 },
+        px: { xs: 2, sm: 4, md: 6 },
+        background: "#222",
+        color: "white",
+        textAlign: "center",
+        minHeight: "100vh",
+      }}
     >
       <Typography
         variant="h4"
-        align="center"
         sx={{
-          fontWeight: 600,
-          mb: 4,
-          color: "#00bcd4",
-          letterSpacing: "0.5px",
+          fontWeight: 700,
+          mb: { xs: 4, md: 6 },
+          color: "#00e5ff",
+          textShadow: "0 0 25px rgba(0,229,255,0.3)",
         }}
       >
-        What People Say
+        💬 What People Say
       </Typography>
 
-      {/* Carousel */}
-      <Box
-        sx={{
-          display: "flex",
-          overflow: "hidden",
-          position: "relative",
-          height: "120px",
-        }}
-      >
-        <motion.div
-          animate={{ x: ["100%", "-100%"] }}
-          transition={{
-            repeat: Infinity,
-            duration: 40,
-            ease: "linear",
-          }}
-          style={{ display: "flex", gap: "24px", whiteSpace: "nowrap" }}
-        >
-          {[...testimonies, ...testimonies].map((t, i) => (
-            <Box
-              key={i}
-              sx={{
-                bgcolor: "rgba(255,255,255,0.08)",
-                borderRadius: "12px",
-                p: 2,
-                minWidth: "280px",
-                maxWidth: "280px",
-                textAlign: "left",
-                boxShadow: "0 4px 15px rgba(0,188,212,0.2)",
-              }}
+      {/* === Testimony Cards === */}
+      <Grid container spacing={3} justifyContent="center">
+        {paginatedData.map((item) => (
+          <Grid item xs={12} sm={6} md={4} key={item.id}>
+            <motion.div
+              whileHover={{ scale: 1.03 }}
+              transition={{ type: "spring", stiffness: 200 }}
             >
-              <Typography
-                variant="subtitle1"
-                sx={{ color: "#00bcd4", fontWeight: 600 }}
-              >
-                {t.name}
-              </Typography>
-              <Typography variant="body2" sx={{ color: "#b0b0b0" }}>
-                {t.testimony}
-              </Typography>
-            </Box>
-          ))}
-        </motion.div>
-      </Box>
+              <Box
+                sx={{
+                  p: 3,
 
-      {/* Floating Add Button */}
+                  background: "rgba(255,255,255,0.05)",
+                  border: "1px solid rgba(0,229,255,0.2)",
+                  boxShadow: "0 0 25px rgba(0,229,255,0.1)",
+                  textAlign: "left",
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  sx={{
+                    color: "#00e5ff",
+                    fontWeight: 600,
+                    mb: 1,
+                    fontSize: "1.1rem",
+                  }}
+                >
+                  {item.name}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: "#cfd8dc",
+                    fontSize: "0.95rem",
+                    lineHeight: 1.6,
+                  }}
+                >
+                  “{item.testimony}”
+                </Typography>
+              </Box>
+            </motion.div>
+          </Grid>
+        ))}
+      </Grid>
+
+      {/* === Pagination === */}
+      {totalPages > 1 && (
+        <Box sx={{ mt: 5, display: "flex", justifyContent: "center" }}>
+          <Pagination
+            count={totalPages}
+            page={page}
+            onChange={(e, value) => setPage(value)}
+            sx={{
+              "& .MuiPaginationItem-root": {
+                color: "#00e5ff",
+                borderColor: "#00e5ff",
+              },
+              "& .Mui-selected": {
+                backgroundColor: "#00e5ff !important",
+                color: "#0b1120 !important",
+              },
+            }}
+          />
+        </Box>
+      )}
+
+      {/* === Floating Add Button === */}
       <IconButton
         onClick={() => setOpen(true)}
         sx={{
           position: "fixed",
-          bottom: 24,
-          right: 24,
-          bgcolor: "#00bcd4",
-          color: "black",
-          "&:hover": { bgcolor: "#00acc1" },
-          width: 60,
-          height: 60,
-          boxShadow: "0 4px 15px rgba(0,188,212,0.5)",
+          bottom: 20,
+          right: 20,
+          bgcolor: "#00e5ff",
+          color: "#0b1120",
+          "&:hover": { bgcolor: "#00bcd4" },
+          width: 48,
+          height: 48,
+          boxShadow: "0 8px 25px rgba(0,229,255,0.4)",
+          zIndex: 20,
         }}
       >
         <AddIcon />
       </IconButton>
 
-      {/* Modal Form */}
+      {/* === Modal Form === */}
       <Modal open={open} onClose={() => setOpen(false)}>
-        <Box
-          component="form"
-          onSubmit={handleSubmit}
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            bgcolor: "rgba(15, 23, 42, 0.95)",
-            borderRadius: "16px",
-            p: 4,
-            width: 340,
-            color: "white",
-            boxShadow: "0 0 20px rgba(0,188,212,0.4)",
-          }}
+        <motion.div
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
         >
-          <Typography
-            variant="h6"
-            sx={{ mb: 2, textAlign: "center", color: "#00bcd4" }}
-          >
-            Add Testimony
-          </Typography>
-
-          <TextField
-            fullWidth
-            variant="outlined"
-            label="Your Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
             sx={{
-              mb: 2,
-              input: { color: "white" },
-              label: { color: "#b0b0b0" },
-            }}
-          />
-          <TextField
-            fullWidth
-            multiline
-            rows={4}
-            variant="outlined"
-            label="Your Testimony"
-            value={testimony}
-            onChange={(e) => setTestimony(e.target.value)}
-            required
-            sx={{
-              mb: 3,
-              textarea: { color: "white" },
-              label: { color: "#b0b0b0" },
-            }}
-          />
-
-          <Button
-            type="submit"
-            fullWidth
-            disabled={submitting}
-            sx={{
-              bgcolor: "#00bcd4",
-              color: "black",
-              fontWeight: 600,
-              borderRadius: "30px",
-              py: 1,
-              "&:hover": { bgcolor: "#00acc1" },
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              bgcolor: "rgba(15,23,42,0.95)",
+              backdropFilter: "blur(12px)",
+              borderRadius: "18px",
+              p: 4,
+              width: { xs: 300, sm: 360 },
+              color: "white",
+              border: "1px solid rgba(0,229,255,0.3)",
+              boxShadow: "0 0 35px rgba(0,229,255,0.25)",
             }}
           >
-            {submitting ? "Sending..." : "Send"}
-          </Button>
+            <Box
+              sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}
+            >
+              <Typography
+                variant="h6"
+                sx={{ color: "#00e5ff", fontWeight: 700 }}
+              >
+                Add Your Testimony
+              </Typography>
+              <IconButton
+                onClick={() => setOpen(false)}
+                sx={{ color: "#00e5ff", "&:hover": { color: "#00bcd4" } }}
+              >
+                <CloseIcon />
+              </IconButton>
+            </Box>
 
-          {message && (
-            <Typography align="center" sx={{ mt: 2, color: "#00bcd4" }}>
-              {message}
-            </Typography>
-          )}
-        </Box>
+            <TextField
+              fullWidth
+              label="Your Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              sx={fieldStyle}
+            />
+            <TextField
+              fullWidth
+              multiline
+              rows={4}
+              label="Your Testimony"
+              value={testimony}
+              onChange={(e) => setTestimony(e.target.value)}
+              required
+              sx={fieldStyle}
+            />
+
+            <Button
+              type="submit"
+              fullWidth
+              disabled={submitting}
+              sx={{
+                bgcolor: "#00e5ff",
+                color: "#0b1120",
+                fontWeight: 600,
+                borderRadius: "30px",
+                py: 1,
+                mt: 1,
+                "&:hover": {
+                  bgcolor: "#00bcd4",
+                  transform: "translateY(-2px)",
+                },
+              }}
+            >
+              {submitting ? "Sending..." : "Send"}
+            </Button>
+
+            {message && (
+              <Typography
+                align="center"
+                sx={{
+                  mt: 2,
+                  color: "#00e5ff",
+                  fontWeight: 500,
+                  fontSize: "0.9rem",
+                }}
+              >
+                {message}
+              </Typography>
+            )}
+          </Box>
+        </motion.div>
       </Modal>
     </Box>
   );
 }
+
+const fieldStyle = {
+  mb: 2,
+  input: { color: "white" },
+  textarea: { color: "white" },
+  label: { color: "#b0b0b0" },
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": { borderColor: "#333" },
+    "&:hover fieldset": { borderColor: "#00e5ff" },
+  },
+};
